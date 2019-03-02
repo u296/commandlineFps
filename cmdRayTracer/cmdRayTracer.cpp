@@ -1,4 +1,4 @@
-﻿/*	TODO
+/*	TODO
 	Transfer global variables into namespaces
 */
 #define _USE_MATH_DEFINES
@@ -38,12 +38,14 @@ namespace Game
 		class Player
 		{
 		public:
-			Player(double xCoordinate, double yCoordinate, double zCoordinate, double zRotation, double fieldOfView, double maxViewDistance)
+			Player(double xCoordinate, double yCoordinate, double zCoordinate, double xRotation, double yRotation, double zRotation, double fieldOfView, double maxViewDistance)
 			{
 				this->xCoordinate = xCoordinate;
 				this->yCoordinate = yCoordinate;
 				this->zCoordinate = zCoordinate;
 
+				this->xRotation = xRotation;
+				this->yRotation = yRotation;
 				this->zRotation = zRotation;
 
 				this->fieldOfView = fieldOfView;
@@ -51,7 +53,7 @@ namespace Game
 			}
 			Player()
 			{
-				
+
 			}
 			~Player()
 			{
@@ -62,6 +64,8 @@ namespace Game
 			double yCoordinate;
 			double zCoordinate;
 
+			double xRotation;
+			double yRotation;
 			double zRotation;
 
 			double fieldOfView;
@@ -73,10 +77,11 @@ namespace Game
 		class Map
 		{
 		public:
-			Map(int width, int height, std::wstring representation)
+			Map(int width, int height, int depth, std::wstring representation)
 			{
 				this->width = width;
 				this->height = height;
+				this->depth = depth;
 				this->representation = representation;
 			}
 			Map()
@@ -90,6 +95,7 @@ namespace Game
 
 			int height;
 			int width;
+			int depth;
 
 			std::wstring representation;
 
@@ -174,7 +180,7 @@ int main()
 
 				distanceToWall = distanceToWall * cos(rayAngle - player.zRotation);
 
-				// löl
+				// l�l
 
 
 
@@ -291,13 +297,13 @@ int main()
 				player.yCoordinate += deltaY;
 			}
 		}
-		
+
 		// Push frame to console
 		Game::Display::windowContents[Game::Display::pixelCount - 1] = '\0';
 		WriteConsoleOutputCharacter(Game::Display::console, Game::Display::windowContents, Game::Display::pixelCount, { 0,0 }, &Game::Display::dwordBytesWritten);
 	} while (Game::Stats::running);
-	
+
 	// End of game loop
-	
+
 	return EXIT_SUCCESS;
 }
